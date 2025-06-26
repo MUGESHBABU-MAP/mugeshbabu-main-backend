@@ -5,8 +5,6 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
-import cors from 'cors'
-
 const allowedOrigins = [
   'https://mugeshbabu-map.github.io',
   'https://mugeshbabu.com',
