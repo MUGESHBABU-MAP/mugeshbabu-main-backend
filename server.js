@@ -5,6 +5,14 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
+import cors from 'cors'
+
+const allowedOrigins = [
+  'https://mugeshbabu-map.github.io',
+  'https://mugeshbabu.com',
+  'http://localhost:5173'
+]
+
 // Import routes
 const authRoutes = require('./routes/auth');
 const serviceRoutes = require('./routes/services');
@@ -27,9 +35,23 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // CORS configuration
+// app.use(cors({
+//   origin: process.env.FRONTEND_URL,
+//   credentials: true
+// }));
+
+// changed to allow multiple origins
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true)
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true)
+    } else {
+      return callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
 }));
 
 // Body parsing middleware
