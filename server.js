@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const allowedOrigins = [
   'https://mugeshbabu-map.github.io',
+  'https://www.mugeshbabu.com',
   'https://mugeshbabu.com',
   'http://localhost:5173'
 ]
